@@ -14,3 +14,8 @@ env/
 # OS files
 .DS_Store
 Thumbs.db
+
+# Scripts to ignore
+tra_downloader.py
+tra_captcha_solver.py
+
