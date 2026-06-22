@@ -3,7 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>個人交通憑證整理平台 - 天心報帳明細 (4段式完整核銷)</title>
+    
+    <!-- ＳＥＯ 搜尋引擎最佳化 -->
+    <title>銀河ERP v1.02 - 個人交通憑證整理平台 (Falo x Force Cheng)</title>
+    <meta name="description" content="銀河ERP 1.02版個人交通憑證整理平台，提供電子與實體憑證OCR辨識、4段式行程管理、合規檢核與一鍵報銷導出。由 Falo x Force Cheng 聯手打造。">
+    <meta name="keywords" content="銀河ERP, 交通憑證, OCR辨識, 報帳系統, 4段式行程, 智慧稽核, Falo, Force Cheng, AI SEO">
+    <meta name="author" content="Force Cheng">
+    <meta name="robots" content="index, follow">
+    
+    <!-- ＧＥＯ / ＡＩ 語意爬取專用結構化數據 (JSON-LD) - 供 AI Agent 解析重用 -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ExpenseReport",
+      "name": "銀河ERP 個人交通憑證整理平台 - 課程出差核銷明細",
+      "version": "1.02",
+      "createdAt": "2026-06-22",
+      "systemWatermark": "Falo x Force Cheng 2026/06/22",
+      "author": {
+        "@type": "Person",
+        "name": "Force Cheng",
+        "organization": "Falo"
+      },
+      "reportSummary": {
+        "claimedAmount": 1201,
+        "currency": "TWD",
+        "claimedSegmentsCount": 7,
+        "unclaimedSegmentsCount": 5
+      },
+      "travelRecords": [
+        {
+          "classId": "Class 01",
+          "date": "2026-05-12",
+          "segments": [
+            { "type": "Train", "route": "高雄 to 台南", "fare": 158, "claimed": true, "details": "自強/普悠瑪 162次" },
+            { "type": "Taxi", "route": "台南車站 to 公司", "fare": 235, "claimed": true, "details": "大都會計程車 TDJ-9163" },
+            { "type": "Shuttle", "route": "公司 to 台南車站", "fare": 0, "claimed": false, "details": "公司接送" },
+            { "type": "Train", "route": "台南車站 to 目的地", "fare": 0, "claimed": false, "details": "非返航段自理" }
+          ]
+        },
+        {
+          "classId": "Class 02",
+          "date": "2026-05-22",
+          "segments": [
+            { "type": "Train", "route": "高雄 to 台南", "fare": 158, "claimed": true, "details": "自強/普悠瑪 162次" },
+            { "type": "Taxi", "route": "台南車站 to 公司", "fare": 195, "claimed": true, "details": "計程車 TDE5310" },
+            { "type": "Shuttle", "route": "公司 to 台南車站", "fare": 0, "claimed": false, "details": "公司接送" },
+            { "type": "Train", "route": "台南車站 to 目的地", "fare": 0, "claimed": false, "details": "非返航段自理" }
+          ]
+        },
+        {
+          "classId": "Class 03",
+          "date": "2026-06-11",
+          "segments": [
+            { "type": "Train", "route": "高雄 to 台南", "fare": 158, "claimed": true, "details": "自強/普悠瑪 162次" },
+            { "type": "Taxi", "route": "台南車站 to 公司", "fare": 195, "claimed": true, "details": "計程車 TDQ-8025" },
+            { "type": "Shuttle", "route": "公司 to 台南車站", "fare": 0, "claimed": false, "details": "公司接送" },
+            { "type": "Train", "route": "台南 to 高雄", "fare": 102, "claimed": true, "details": "區間車 A6008701927-8408" }
+          ]
+        }
+      ]
+    }
+    </script>
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -46,11 +108,14 @@
             min-height: 100vh;
             padding: 2rem 1.5rem;
             line-height: 1.6;
+            position: relative;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
+            position: relative;
+            z-index: 10;
         }
 
         /* Header */
@@ -412,14 +477,88 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        /* 備註與說明卡片 */
+        .remarks-card {
+            background: rgba(245, 158, 11, 0.03);
+            border: 1px solid rgba(245, 158, 11, 0.15);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .remarks-card h3 {
+            font-size: 1rem;
+            color: #fbbf24;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .remarks-list {
+            list-style: none;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .remarks-list li {
+            position: relative;
+            padding-left: 1.25rem;
+        }
+
+        .remarks-list li::before {
+            content: "•";
+            color: #fbbf24;
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        /* 隱藏浮水印與簽章 */
+        .watermark-visible {
+            text-align: center;
+            padding: 2rem 0;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            border-top: 1px solid var(--card-border);
+            letter-spacing: 0.05em;
+        }
+
+        /* 1. 極淡的隱藏防偽浮水印 (0.01 不透明度，螢幕幾乎看不到，但結構中存在且列印時可控制) */
+        .hidden-watermark {
+            position: fixed;
+            bottom: 15px;
+            right: 15px;
+            opacity: 0.015;
+            color: #ffffff;
+            font-size: 11px;
+            font-family: monospace;
+            pointer-events: none;
+            user-select: none;
+            z-index: 99999;
+        }
+
+        /* 2. 針對 AI 爬取的隱藏 metadata 屬性 (AI-Readable Watermark) */
+        [data-metadata-watermark] {
+            display: none !important;
+            visibility: hidden !important;
+        }
     </style>
 </head>
 <body>
+    <!-- 隱藏防偽浮水印 (螢幕近乎隱形，但爬蟲與DOM分析可見) -->
+    <div class="hidden-watermark">Falo x Force Cheng 2026/6/22</div>
+    <div data-metadata-watermark="Falo x Force Cheng 2026/06/22 v1.02"></div>
+
     <div class="container">
         <!-- Header -->
         <header>
             <div class="header-title">
-                <h1>個人交通憑證整理平台 <span class="class-tag" style="background: rgba(139, 92, 246, 0.15); color: #c084fc; border-color: rgba(139, 92, 246, 0.3);">天心報帳 MVP</span></h1>
+                <h1>銀河ERP <span class="class-tag" style="background: rgba(139, 92, 246, 0.15); color: #c084fc; border-color: rgba(139, 92, 246, 0.3);">v1.02</span></h1>
                 <p>4段式完整行程核銷明細表 (去程火車 ➔ 接駁計程車 ➔ 公司回程接送 ➔ 回程火車)</p>
             </div>
             <div class="header-actions">
@@ -457,6 +596,17 @@
                     <span class="stat-value" style="color: #34d399;">NT$ 1,201</span>
                 </div>
             </div>
+        </div>
+
+        <!-- Remarks Section (備注) -->
+        <div class="remarks-card">
+            <h3><i data-lucide="alert-circle"></i> 報支備註與規則說明</h3>
+            <ul class="remarks-list">
+                <li>本核銷清單由 **銀河ERP v1.02** 系統自動整合 OCR 解析生成，並經由 Falo AI Audit 稽核模組覆核。</li>
+                <li>**免申報說明**：依銀河ERP出差政策規範，凡是天心公司提供專車接駁段（段③）均標記為「免申報（NT$ 0）」。</li>
+                <li>**回程非高雄段說明**：Class 01 與 Class 02 之回程段（段④）目的地並非原出發地高雄，故標記為「不請款報銷」，由員工自理。</li>
+                <li>**一鍵下載備份**：右上角提供「下載所有憑證 ZIP」功能，可直接存取本批次之 PDF 電子乘車證明與計程車收據圖檔。</li>
+            </ul>
         </div>
 
         <!-- Class 01 Card -->
@@ -792,6 +942,11 @@
                 <img src="mock_evidence_2/全部計程車單據.jpg" alt="All Taxi Receipts Combined" style="max-height: 480px; object-fit: contain;">
                 <div class="doc-tag"><i data-lucide="image"></i> 三堂課程計程車單據合照對照檔 (全部計程車單據.jpg)</div>
             </div>
+        </div>
+
+        <!-- Visible Watermark/Signature Footer -->
+        <div class="watermark-visible">
+            銀河ERP v1.02 | 系統簽章：Falo x Force Cheng 2026/6/22
         </div>
     </div>
 
