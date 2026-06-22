@@ -1,0 +1,15 @@
+{
+  "manifest_version": 3,
+  "name": "銀河ERP - 憑證下載器",
+  "version": "1.00",
+  "description": "第一步：台鐵購票證明免驗證碼一鍵下載器",
+  "permissions": [
+    "downloads"
+  ],
+  "host_permissions": [
+    "https://tip.railway.gov.tw/*"
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  }
+}

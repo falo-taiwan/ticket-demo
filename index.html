@@ -3,96 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- ＳＥＯ 搜尋引擎最佳化 -->
-    <title>銀河ERP v1.02 - 個人交通憑證整理平台 (Falo x Force Cheng)</title>
-    <meta name="description" content="銀河ERP 1.02版個人交通憑證整理平台，提供電子與實體憑證OCR辨識、4段式行程管理、合規檢核與一鍵報銷導出。由 Falo x Force Cheng 聯手打造。">
-    <meta name="keywords" content="銀河ERP, 交通憑證, OCR辨識, 報帳系統, 4段式行程, 智慧稽核, Falo, Force Cheng, AI SEO">
-    <meta name="author" content="Force Cheng">
-    <meta name="robots" content="index, follow">
-    
-    <!-- ＧＥＯ / ＡＩ 語意爬取專用結構化數據 (JSON-LD) - 供 AI Agent 解析重用 -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "ExpenseReport",
-      "name": "銀河ERP 個人交通憑證整理平台 - 課程出差核銷明細",
-      "version": "1.02",
-      "createdAt": "2026-06-22",
-      "systemWatermark": "Falo x Force Cheng 2026/06/22",
-      "author": {
-        "@type": "Person",
-        "name": "Force Cheng",
-        "organization": "Falo"
-      },
-      "reportSummary": {
-        "claimedAmount": 1201,
-        "currency": "TWD",
-        "claimedSegmentsCount": 7,
-        "unclaimedSegmentsCount": 5
-      },
-      "travelRecords": [
-        {
-          "classId": "Class 01",
-          "date": "2026-05-12",
-          "segments": [
-            { "type": "Train", "route": "高雄 to 台南", "fare": 158, "claimed": true, "details": "自強/普悠瑪 162次" },
-            { "type": "Taxi", "route": "台南車站 to 公司", "fare": 235, "claimed": true, "details": "大都會計程車 TDJ-9163" },
-            { "type": "Shuttle", "route": "公司 to 台南車站", "fare": 0, "claimed": false, "details": "公司接送" },
-            { "type": "Train", "route": "台南車站 to 目的地", "fare": 0, "claimed": false, "details": "非返航段自理" }
-          ]
-        },
-        {
-          "classId": "Class 02",
-          "date": "2026-05-22",
-          "segments": [
-            { "type": "Train", "route": "高雄 to 台南", "fare": 158, "claimed": true, "details": "自強/普悠瑪 162次" },
-            { "type": "Taxi", "route": "台南車站 to 公司", "fare": 195, "claimed": true, "details": "計程車 TDE5310" },
-            { "type": "Shuttle", "route": "公司 to 台南車站", "fare": 0, "claimed": false, "details": "公司接送" },
-            { "type": "Train", "route": "台南車站 to 目的地", "fare": 0, "claimed": false, "details": "非返航段自理" }
-          ]
-        },
-        {
-          "classId": "Class 03",
-          "date": "2026-06-11",
-          "segments": [
-            { "type": "Train", "route": "高雄 to 台南", "fare": 158, "claimed": true, "details": "自強/普悠瑪 162次" },
-            { "type": "Taxi", "route": "台南車站 to 公司", "fare": 195, "claimed": true, "details": "計程車 TDQ-8025" },
-            { "type": "Shuttle", "route": "公司 to 台南車站", "fare": 0, "claimed": false, "details": "公司接送" },
-            { "type": "Train", "route": "台南 to 高雄", "fare": 102, "claimed": true, "details": "區間車 A6008701927-8408" }
-          ]
-        }
-      ]
-    }
-    </script>
-
+    <title>銀河ERP - 憑證下載助手 Hub</title>
     <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-gradient-start: #080c16;
-            --bg-gradient-end: #0f1322;
-            --card-bg: rgba(30, 41, 59, 0.45);
-            --card-border: rgba(255, 255, 255, 0.06);
-            --card-hover-bg: rgba(30, 41, 59, 0.6);
-            --card-hover-border: rgba(99, 102, 241, 0.35);
-            
+            --bg-color: #080c14;
+            --card-bg: rgba(30, 41, 59, 0.4);
+            --card-hover-bg: rgba(30, 41, 59, 0.55);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --border-hover: rgba(99, 102, 241, 0.3);
             --text-primary: #f8fafc;
             --text-secondary: #cbd5e1;
             --text-muted: #64748b;
-            
             --accent-primary: #6366f1; /* Indigo */
-            --accent-primary-glow: rgba(99, 102, 241, 0.2);
-            --accent-green: #10b981; /* Emerald */
-            --accent-green-glow: rgba(16, 185, 129, 0.15);
-            --accent-orange: #f59e0b; /* Amber */
-            --accent-orange-glow: rgba(245, 158, 11, 0.15);
-            --accent-red: #ef4444; /* Red */
-            --accent-red-glow: rgba(239, 68, 68, 0.15);
+            --accent-hover: #4f46e5;
+            --accent-glow: rgba(99, 102, 241, 0.15);
+            --accent-amber: #d97706; /* Amber */
+            --accent-amber-hover: #b45309;
+            --success-color: #10b981;
         }
 
         * {
@@ -103,856 +32,582 @@
 
         body {
             font-family: 'Inter', 'Noto Sans TC', sans-serif;
-            background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+            background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.08) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(217, 119, 6, 0.05) 0px, transparent 50%);
             color: var(--text-primary);
             min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             padding: 2rem 1.5rem;
             line-height: 1.6;
-            position: relative;
         }
 
         .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 10;
+            width: 100%;
+            max-width: 900px;
         }
 
-        /* Header */
         header {
-            margin-bottom: 2.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--card-border);
-            padding-bottom: 1.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border-color);
         }
 
-        .header-title h1 {
-            font-size: 1.8rem;
+        header h1 {
+            font-size: 2.2rem;
             font-weight: 700;
-            background: linear-gradient(to right, #818cf8, #a78bfa);
+            background: linear-gradient(to right, #818cf8, #f59e0b);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 0.25rem;
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
+            margin-bottom: 0.5rem;
         }
 
-        .header-title p {
+        header p {
             color: var(--text-secondary);
-            font-size: 0.95rem;
+            font-size: 1rem;
+            max-width: 600px;
+            margin: 0 auto;
         }
 
-        .header-actions {
+        /* 雙版本對比區域 */
+        .version-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            .version-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .version-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
             display: flex;
-            gap: 1rem;
+            flex-direction: column;
+            transition: all 0.3s ease;
         }
 
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--card-border);
-            color: var(--text-primary);
-            padding: 0.6rem 1.2rem;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            text-decoration: none;
-        }
-
-        .btn:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.2);
+        .version-card:hover {
+            background: var(--card-hover-bg);
+            border-color: var(--border-hover);
+            box-shadow: 0 10px 25px var(--accent-glow);
             transform: translateY(-2px);
         }
 
-        .btn-primary {
-            background: var(--accent-primary);
-            border-color: var(--accent-primary);
-            box-shadow: 0 4px 12px var(--accent-primary-glow);
-        }
-
-        /* Stats Grid */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2.5rem;
-        }
-
-        .stat-card {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 12px;
-            padding: 1.25rem;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            backdrop-filter: blur(12px);
-        }
-
-        .stat-icon {
-            width: 44px;
-            height: 44px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .stat-icon.train {
-            background: rgba(99, 102, 241, 0.15);
-            color: #818cf8;
-        }
-
-        .stat-icon.taxi {
-            background: rgba(245, 158, 11, 0.15);
-            color: #fbbf24;
-        }
-
-        .stat-icon.shuttle {
-            background: rgba(139, 92, 246, 0.15);
-            color: #a78bfa;
-        }
-
-        .stat-icon.total {
-            background: rgba(16, 185, 129, 0.15);
-            color: #34d399;
-        }
-
-        .stat-info {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .stat-label {
-            font-size: 0.8rem;
-            color: #94a3b8;
-        }
-
-        .stat-value {
-            font-size: 1.25rem;
-            font-weight: 700;
-            margin-top: 0.15rem;
-        }
-
-        /* Class Card */
-        .class-card {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 16px;
-            padding: 2rem;
-            margin-bottom: 2.5rem;
-            backdrop-filter: blur(16px);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .class-card:hover {
-            border-color: var(--card-hover-border);
-            background: var(--card-hover-bg);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        }
-
-        .class-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-            border-bottom: 1px dashed rgba(255, 255, 255, 0.08);
-            padding-bottom: 1rem;
-        }
-
-        .class-title {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-
-        .class-tag {
-            background: var(--accent-primary-glow);
-            color: #a5b4fc;
-            padding: 0.25rem 0.75rem;
-            border-radius: 99px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            border: 1px solid rgba(99, 102, 241, 0.3);
-        }
-
-        .class-date {
-            color: #94a3b8;
-            font-size: 0.95rem;
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-        }
-
-        .class-content {
-            display: grid;
-            grid-template-columns: 1fr 1.2fr;
-            gap: 2.5rem;
-        }
-
-        @media (max-width: 900px) {
-            .class-content {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Documents Column */
-        .docs-column {
-            display: flex;
-            flex-direction: column;
-            gap: 1.25rem;
-        }
-
-        .doc-wrapper {
-            position: relative;
-            border-radius: 10px;
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            background: #1e293b;
-        }
-
-        .doc-wrapper.pdf-wrapper {
-            height: 280px;
-        }
-
-        .doc-wrapper img {
-            width: 100%;
-            height: auto;
-            max-height: 350px;
-            object-fit: contain;
-            display: block;
-            opacity: 0.9;
-        }
-
-        .doc-wrapper iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-            background: white;
-        }
-
-        .doc-tag {
-            position: absolute;
-            bottom: 12px;
-            left: 12px;
-            background: rgba(15, 23, 42, 0.85);
-            backdrop-filter: blur(4px);
-            padding: 0.3rem 0.7rem;
-            border-radius: 4px;
+        .version-badge {
+            align-self: flex-start;
             font-size: 0.75rem;
             font-weight: 600;
-            color: #e2e8f0;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            z-index: 10;
-        }
-
-        /* Metadata Column */
-        .meta-column {
-            display: flex;
-            flex-direction: column;
-            gap: 1.25rem;
-        }
-
-        /* Segment Timeline Card */
-        .segment-card {
-            background: rgba(255, 255, 255, 0.015);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 10px;
-            padding: 1.25rem;
-            position: relative;
-        }
-
-        .segment-title {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            font-weight: 600;
-            margin-bottom: 0.75rem;
-            font-size: 0.95rem;
-        }
-
-        .segment-title.train {
-            color: #818cf8;
-        }
-
-        .segment-title.taxi {
-            color: #fbbf24;
-        }
-
-        .segment-title.shuttle {
-            color: #c084fc;
-        }
-
-        .ocr-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.85rem;
-        }
-
-        .ocr-table td {
-            padding: 0.45rem 0.5rem;
-            vertical-align: top;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
-        }
-
-        .ocr-table tr:last-child td {
-            border-bottom: none;
-        }
-
-        .ocr-table td.label {
-            color: #94a3b8;
-            width: 110px;
-            font-weight: 500;
-        }
-
-        .ocr-table td.value {
-            color: var(--text-primary);
-        }
-
-        .badge {
-            font-size: 0.7rem;
-            padding: 0.15rem 0.4rem;
-            border-radius: 4px;
-            font-weight: 600;
-            display: inline-block;
-        }
-
-        .badge.pdf {
-            background: rgba(239, 68, 68, 0.15);
-            color: #f87171;
-            border: 1px solid rgba(239, 68, 68, 0.3);
-        }
-
-        .badge.claim {
-            background: var(--accent-green-glow);
-            color: #34d399;
-            border: 1px solid rgba(16, 185, 129, 0.3);
-        }
-
-        .badge.no-claim {
-            background: rgba(148, 163, 184, 0.15);
-            color: #cbd5e1;
-            border: 1px solid rgba(148, 163, 184, 0.3);
-        }
-
-        .total-box {
-            margin-top: auto;
-            background: rgba(99, 102, 241, 0.08);
-            border: 1px solid rgba(99, 102, 241, 0.2);
-            border-radius: 8px;
-            padding: 1.25rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .total-box span {
-            font-size: 0.95rem;
-            color: #a5b4fc;
-            font-weight: 500;
-        }
-
-        .total-price {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #818cf8;
-        }
-
-        .image-side-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-        }
-
-        @media (max-width: 600px) {
-            .image-side-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* 備註與說明卡片 */
-        .remarks-card {
-            background: rgba(245, 158, 11, 0.03);
-            border: 1px solid rgba(245, 158, 11, 0.15);
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .remarks-card h3 {
-            font-size: 1rem;
-            color: #fbbf24;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 0.75rem;
-        }
-
-        .remarks-list {
-            list-style: none;
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .remarks-list li {
-            position: relative;
-            padding-left: 1.25rem;
-        }
-
-        .remarks-list li::before {
-            content: "•";
-            color: #fbbf24;
-            position: absolute;
-            left: 0;
-            font-weight: bold;
-        }
-
-        /* 隱藏浮水印與簽章 */
-        .watermark-visible {
-            text-align: center;
-            padding: 2rem 0;
-            color: var(--text-muted);
-            font-size: 0.8rem;
-            border-top: 1px solid var(--card-border);
+            text-transform: uppercase;
+            padding: 0.25rem 0.6rem;
+            border-radius: 9999px;
+            margin-bottom: 1rem;
             letter-spacing: 0.05em;
         }
 
-        /* 1. 極淡的隱藏防偽浮水印 (0.01 不透明度，螢幕幾乎看不到，但結構中存在且列印時可控制) */
-        .hidden-watermark {
-            position: fixed;
-            bottom: 15px;
-            right: 15px;
-            opacity: 0.015;
-            color: #ffffff;
-            font-size: 11px;
-            font-family: monospace;
-            pointer-events: none;
-            user-select: none;
-            z-index: 99999;
+        .badge-ext {
+            background: rgba(99, 102, 241, 0.15);
+            color: #a5b4fc;
+            border: 1px solid rgba(99, 102, 241, 0.3);
         }
 
-        /* 2. 針對 AI 爬取的隱藏 metadata 屬性 (AI-Readable Watermark) */
-        [data-metadata-watermark] {
-            display: none !important;
-            visibility: hidden !important;
+        .badge-web {
+            background: rgba(217, 119, 6, 0.15);
+            color: #fcd34d;
+            border: 1px solid rgba(217, 119, 6, 0.3);
+        }
+
+        .version-card h2 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .version-card p.desc {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .feature-list {
+            margin-bottom: 2rem;
+            list-style: none;
+        }
+
+        .feature-list li {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.6rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .feature-list li svg {
+            flex-shrink: 0;
+            color: var(--success-color);
+        }
+
+        .action-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .btn-ext {
+            background: var(--accent-primary);
+            color: var(--text-primary);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
+        }
+
+        .btn-ext:hover {
+            background: var(--accent-hover);
+        }
+
+        .btn-web {
+            background: var(--accent-amber);
+            color: var(--text-primary);
+            box-shadow: 0 4px 12px rgba(217, 119, 6, 0.2);
+        }
+
+        .btn-web:hover {
+            background: var(--accent-amber-hover);
+        }
+
+        /* 詳細說明區域 */
+        .instruction-section {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .instruction-section h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1.25rem;
+            border-left: 4px solid var(--accent-amber);
+            padding-left: 0.75rem;
+        }
+
+        .steps {
+            margin-left: 1.25rem;
+            margin-bottom: 2rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .steps li {
+            margin-bottom: 0.75rem;
+        }
+
+        /* 程式碼複製區 */
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #0f172a;
+            border: 1px solid var(--border-color);
+            border-bottom: none;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            padding: 0.6rem 1rem;
+            font-family: monospace;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .code-container {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .copy-btn {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: var(--text-primary);
+            padding: 0.25rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .copy-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        pre {
+            background: #090d16;
+            border: 1px solid var(--border-color);
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+            padding: 1.25rem;
+            overflow-x: auto;
+            max-height: 350px;
+            font-family: 'Fira Code', 'Courier New', Courier, monospace;
+            font-size: 0.8rem;
+            color: #e2e8f0;
+        }
+
+        /* 底部頁尾 */
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        footer a {
+            color: var(--accent-primary);
+            text-decoration: none;
+            margin: 0 0.5rem;
+            transition: color 0.2s ease;
+        }
+
+        footer a:hover {
+            color: var(--accent-hover);
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
-    <!-- 隱藏防偽浮水印 (螢幕近乎隱形，但爬蟲與DOM分析可見) -->
-    <div class="hidden-watermark">Falo x Force Cheng 2026/6/22</div>
-    <div data-metadata-watermark="Falo x Force Cheng 2026/06/22 v1.02"></div>
 
     <div class="container">
         <!-- Header -->
         <header>
-            <div class="header-title">
-                <h1>銀河ERP <span class="class-tag" style="background: rgba(139, 92, 246, 0.15); color: #c084fc; border-color: rgba(139, 92, 246, 0.3);">v1.02</span></h1>
-                <p>4段式完整行程核銷明細表 (去程火車 ➔ 接駁計程車 ➔ 公司回程接送 ➔ 回程火車)</p>
-            </div>
-            <div class="header-actions">
-                <a href="evidence_archive.zip" class="btn btn-primary" download><i data-lucide="download"></i> 下載所有憑證 ZIP</a>
-                <button class="btn" onclick="window.print()"><i data-lucide="printer"></i> 列印明細表</button>
-            </div>
+            <h1>銀河ERP - 憑證下載助手 Hub</h1>
+            <p>雙版本自主佈署解決方案，提供台鐵購票證明的快速查詢、自訂重命名與一鍵下載服務。</p>
         </header>
 
-        <!-- Stats Overview -->
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-icon train">
-                    <i data-lucide="check-circle"></i>
-                </div>
-                <div class="stat-info">
-                    <span class="stat-label">應申報段數</span>
-                    <span class="stat-value">7 段</span>
-                </div>
+        <!-- Version Comparison Grid -->
+        <div class="version-grid">
+            <!-- Chrome Extension Version -->
+            <div class="version-card">
+                <span class="version-badge badge-ext">Version A (外掛版)</span>
+                <h2>Chrome Extension 本機外掛</h2>
+                <p class="desc">直接安裝於 Chrome 瀏覽器內。無須設定中轉伺服器，100% 透過本機網路連線下載，極高隱私與下載速度。</p>
+                <ul class="feature-list">
+                    <li>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                        隱私防護極高，資料不經第三方
+                    </li>
+                    <li>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                        本機直連台鐵官網，速度最快
+                    </li>
+                    <li>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                        支援自動命名存檔與下載
+                    </li>
+                </ul>
+                <a href="tra_downloader_extension.zip" class="action-btn btn-ext" download>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    下載 Chrome 外掛 ZIP 包
+                </a>
             </div>
-            <div class="stat-card">
-                <div class="stat-icon shuttle">
-                    <i data-lucide="x-circle"></i>
-                </div>
-                <div class="stat-info">
-                    <span class="stat-label">免申報/公司接駁段</span>
-                    <span class="stat-value">5 段 (不請款)</span>
-                </div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon total">
-                    <i data-lucide="coins"></i>
-                </div>
-                <div class="stat-info">
-                    <span class="stat-label">可報銷總金額</span>
-                    <span class="stat-value" style="color: #34d399;">NT$ 1,201</span>
-                </div>
-            </div>
-        </div>
 
-        <!-- Remarks Section (備注) -->
-        <div class="remarks-card">
-            <h3><i data-lucide="alert-circle"></i> 報支備註與規則說明</h3>
-            <ul class="remarks-list">
-                <li>本核銷清單由 **銀河ERP v1.02** 系統自動整合 OCR 解析生成，並經由 Falo AI Audit 稽核模組覆核。</li>
-                <li>**免申報說明**：依銀河ERP出差政策規範，凡是銀河公司提供專車接駁段（段③）均標記為「免申報（NT$ 0）」。</li>
-                <li>**回程非高雄段說明**：Class 01 與 Class 02 之回程段（段④）目的地並非原出發地高雄，故標記為「不請款報銷」，由員工自理。</li>
-                <li>**一鍵下載備份**：右上角提供「下載所有憑證 ZIP」功能，可直接存取本批次之 PDF 電子乘車證明與計程車收據圖檔。</li>
-            </ul>
-        </div>
-
-        <!-- Class 01 Card -->
-        <div class="class-card">
-            <div class="class-header">
-                <div class="class-title">
-                    <span class="class-tag">Class 01</span>
-                    <h2>實體憑證核銷 ＆ 接駁狀態明細</h2>
-                </div>
-                <div class="class-date">
-                    <i data-lucide="calendar"></i> 2026年5月12日 (二)
-                </div>
-            </div>
-            <div class="class-content">
-                <!-- Left: Document Preview -->
-                <div class="docs-column">
-                    <div class="doc-wrapper pdf-wrapper">
-                        <iframe src="mock_evidence_2/20260512高雄台南.pdf"></iframe>
-                        <div class="doc-tag"><i data-lucide="file-text"></i> 去程台鐵電子購票證明 (PDF)</div>
-                    </div>
-                    <div class="doc-wrapper">
-                        <img src="mock_evidence_2/20260512計程車.jpg" alt="Class 01 Taxi Receipt">
-                        <div class="doc-tag"><i data-lucide="image"></i> 去程計程車乘車證明 (JPG)</div>
-                    </div>
-                </div>
-                <!-- Right: OCR Metadata & 4-Segments -->
-                <div class="meta-column">
-                    <!-- Segment 1: Outbound Train -->
-                    <div class="segment-card">
-                        <div class="segment-title train">
-                            <span>① 去程火車：高雄 ➔ 臺南 (自強/普悠瑪 162次)</span>
-                            <span class="badge claim">請款報銷</span>
-                        </div>
-                        <table class="ocr-table">
-                            <tr>
-                                <td class="label">乘車時間</td>
-                                <td class="value">2026/05/12 (08:00 - 08:27)</td>
-                            </tr>
-                            <tr>
-                                <td class="label">車資金額</td>
-                                <td class="value"><span style="font-weight: 600; color: #818cf8;">NT$ 158 元</span> (票號: N60166897110939)</td>
-                            </tr>
-                        </table>
-                    </div>
-
-                    <!-- Segment 2: Middle Taxi -->
-                    <div class="segment-card">
-                        <div class="segment-title taxi">
-                            <span>② 中間接駁：臺南車站 ➔ 銀河公司 (大都會計程車)</span>
-                            <span class="badge claim">請款報銷</span>
-                        </div>
-                        <table class="ocr-table">
-                            <tr>
-                                <td class="label">搭乘時間</td>
-                                <td class="value">2026/05/12 (08:36 - 08:55)</td>
-                            </tr>
-                            <tr>
-                                <td class="label">計程車資</td>
-                                <td class="value"><span style="font-weight: 600; color: #fbbf24;">NT$ 235 元</span> (車牌: TDJ-9163 / 里程: 6.3 km)</td>
-                            </tr>
-                        </table>
-                    </div>
-
-                    <!-- Segment 3: Company Shuttle -->
-                    <div class="segment-card" style="opacity: 0.85;">
-                        <div class="segment-title shuttle">
-                            <span>③ 回程接駁：銀河公司 ➔ 臺南車站 (專車送站)</span>
-                            <span class="badge no-claim">不請款報銷</span>
-                        </div>
-                        <table class="ocr-table">
-                            <tr>
-                                <td class="label">車資費用</td>
-                                <td class="value">NT$ 0 元</td>
-                            </tr>
-                            <tr>
-                                <td class="label">說明原因</td>
-                                <td class="value" style="color: #a78bfa;">銀河公司專車接送，無產生個人費用</td>
-                            </tr>
-                        </table>
-                    </div>
-
-                    <!-- Segment 4: Return Train -->
-                    <div class="segment-card" style="opacity: 0.85;">
-                        <div class="segment-title train" style="color: #94a3b8;">
-                            <span>④ 回程火車：臺南車站 ➔ 目的地 (非高雄返航段)</span>
-                            <span class="badge no-claim">不請款報銷</span>
-                        </div>
-                        <table class="ocr-table">
-                            <tr>
-                                <td class="label">回程區間</td>
-                                <td class="value">臺南 ➔ XXX (私人家務行程)</td>
-                            </tr>
-                            <tr>
-                                <td class="label">說明原因</td>
-                                <td class="value" style="color: #cbd5e1;">目的地非原出發地(高雄)，此段不列入出差報支請款</td>
-                            </tr>
-                        </table>
-                    </div>
-
-                    <div class="total-box">
-                        <span>本日核銷小計 (段① + 段②)</span>
-                        <span class="total-price">NT$ 393</span>
-                    </div>
-                </div>
+            <!-- GAS Web Version -->
+            <div class="version-card">
+                <span class="version-badge badge-web">Version B (網頁版)</span>
+                <h2>GAS + Web 網頁免安裝版</h2>
+                <p class="desc">使用個人的 Google Apps Script 作為安全中轉節點。只要開啟網址即可使用，支援電腦與手機行動裝置。</p>
+                <ul class="feature-list">
+                    <li>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                        免裝外掛與軟體，開網頁即用
+                    </li>
+                    <li>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                        支援跨裝置、手機端下載更名
+                    </li>
+                    <li>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                        完全代碼開源，自行佈署節點
+                    </li>
+                </ul>
+                <a href="gas_client.html" class="action-btn btn-web">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    前往網頁版下載介面
+                </a>
             </div>
         </div>
 
-        <!-- Class 02 Card -->
-        <div class="class-card">
-            <div class="class-header">
-                <div class="class-title">
-                    <span class="class-tag">Class 02</span>
-                    <h2>實體憑證核銷 ＆ 接駁狀態明細</h2>
-                </div>
-                <div class="class-date">
-                    <i data-lucide="calendar"></i> 2026年5月22日 (五)
-                </div>
+        <!-- Version A Guide -->
+        <div class="instruction-section">
+            <h3>方案 A：Chrome 本機外掛安裝說明</h3>
+            <ol class="steps">
+                <li>點擊上方按鈕下載 <b>tra_downloader_extension.zip</b> 壓縮包並將其解壓縮到本機資料夾。</li>
+                <li>在 Chrome 瀏覽器網址列輸入 <code>chrome://extensions/</code> 並按下 Enter 進入外掛管理頁面。</li>
+                <li>開啟右上角的「<b>開發人員模式</b>」開關。</li>
+                <li>點擊左上角「<b>載入未封裝項目</b>」按鈕，選擇剛才解壓縮出來的外掛資料夾。</li>
+                <li>完成！在 Chrome 擴充功能列釘選「銀河ERP - 憑證下載器」，點開即可直接下載。</li>
+            </ol>
+        </div>
+
+        <!-- Version B Guide -->
+        <div class="instruction-section">
+            <h3>方案 B：GAS 後端節點佈署指引</h3>
+            <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1rem;">
+                為了保護您的敏感資料（如身分證字號），本方案不提供公共服務器，而是請您佈署於您個人 Google 帳戶的 GAS (Google Apps Script) 上，設定過程僅需 30 秒：
+            </p>
+            <ol class="steps">
+                <li>開啟瀏覽器造訪網址： <a href="https://sheets.new" target="_blank" style="color: var(--accent-primary);">https://sheets.new</a> 建立一個新的 Google 試算表 (Google Sheet)。</li>
+                <li>點選上方選單列的「<b>擴充功能 (Extensions)</b>」➔「<b>Apps Script</b>」以開啟專案編輯器。</li>
+                <li>複製下方代碼框中的完整程式碼，並貼上覆蓋編輯器內原有的預設內容。</li>
+                <li>點擊右上角的「<b>部署</b>」 ➔ 「<b>新部署</b>」。</li>
+                <li>在選單中點選左上方齒輪圖示，選擇「<b>網頁應用程式 (Web App)</b>」。</li>
+                <li>設定部署設定：
+                    <ul>
+                        <li>執行身分：選擇「<b>我 (您的Google帳號)</b>」</li>
+                        <li>誰能存取：選擇「<b>任何人 (Anyone)</b>」</li>
+                    </ul>
+                </li>
+                <li>點選「部署」按鈕。此時會要求授權您的 Google 帳戶，請點選核准以提供連線存取。</li>
+                <li>部署成功後，<b>複製</b>產生的「網頁應用程式 URL」網址。</li>
+                <li>點選上面的「前往網頁版下載介面」按鈕，在網址欄貼上您複製的 URL 後，即可開始下載。</li>
+            </ol>
+
+            <!-- GAS Code Block -->
+            <div class="code-header">
+                <span>gas_backend.js</span>
+                <button id="copyBtn" class="copy-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                    複製程式碼
+                </button>
             </div>
-            <div class="class-content">
-                <!-- Left: Document Preview -->
-                <div class="docs-column">
-                    <div class="doc-wrapper pdf-wrapper">
-                        <iframe src="mock_evidence_2/202260522高雄台南.pdf"></iframe>
-                        <div class="doc-tag"><i data-lucide="file-text"></i> 去程台鐵電子購票證明 (PDF)</div>
-                    </div>
-                    <div class="doc-wrapper">
-                        <img src="mock_evidence_2/20260522計程車單據.jpg" alt="Class 02 Taxi Receipt">
-                        <div class="doc-tag"><i data-lucide="image"></i> 去程計程車乘車證明 (JPG)</div>
-                    </div>
-                </div>
-                <!-- Right: OCR Metadata & 4-Segments -->
-                <div class="meta-column">
-                    <!-- Segment 1: Outbound Train -->
-                    <div class="segment-card">
-                        <div class="segment-title train">
-                            <span>① 去程火車：高雄 ➔ 臺南 (自強/普悠瑪 162車次)</span>
-                            <span class="badge claim">請款報銷</span>
-                        </div>
-                        <table class="ocr-table">
-                            <tr>
-                                <td class="label">乘車時間</td>
-                                <td class="value">2026/05/22 (08:00 - 08:27)</td>
-                            </tr>
-                            <tr>
-                                <td class="label">車資金額</td>
-                                <td class="value"><span style="font-weight: 600; color: #818cf8;">NT$ 158 元</span> (票號: N60178797885381)</td>
-                            </tr>
-                        </table>
-                    </div>
+            <div class="code-container">
+<pre><code id="gasCode">/**
+ * 銀河ERP - 台鐵憑證下載助手 GAS 後端
+ * 
+ * 系統浮水印：Falo x Force Cheng 2026/6/22
+ * 
+ * 部署指引：
+ * 1. 瀏覽網頁 https://sheets.new 建立一個新的 Google 試算表 (Google Sheet)。
+ * 2. 點選選單列的「擴充功能 (Extensions)」➔「Apps Script」進入編輯器。
+ * 3. 將此檔案的所有內容複製，並貼入程式碼編輯器中（覆蓋預設的 Code.gs 內容）。
+ * 4. 點選右上角「部署」->「新部署」。
+ * 5. 點選左側齒輪，選擇「網頁應用程式 (Web App)」。
+ * 6. 設定：
+ *    - 說明：銀河ERP 台鐵憑證下載服務 (Falo x Force Cheng)
+ *    - 執行身分：您的 Google 帳戶 (Me)
+ *    - 誰能存取：任何人 (Anyone)
+ * 7. 點選「部署」，授權存取。
+ * 8. 複製產生的「網頁應用程式 URL」，將其貼入您的網頁版用戶端 (gas_client.html) 中使用。
+ */
 
-                    <!-- Segment 2: Middle Taxi -->
-                    <div class="segment-card">
-                        <div class="segment-title taxi">
-                            <span>② 中間接駁：臺南車站 ➔ 銀河公司 (大都會計程車)</span>
-                            <span class="badge claim">請款報銷</span>
-                        </div>
-                        <table class="ocr-table">
-                            <tr>
-                                <td class="label">搭乘時間</td>
-                                <td class="value">2026/05/22 (08:33 - 08:48)</td>
-                            </tr>
-                            <tr>
-                                <td class="label">計程車資</td>
-                                <td class="value"><span style="font-weight: 600; color: #fbbf24;">NT$ 195 元</span> (車牌: TDE5310 / 里程: 4.9 km)</td>
-                            </tr>
-                        </table>
-                    </div>
+function doGet(e) {
+  return handleRequest(e);
+}
 
-                    <!-- Segment 3: Company Shuttle -->
-                    <div class="segment-card" style="opacity: 0.85;">
-                        <div class="segment-title shuttle">
-                            <span>③ 回程接駁：銀河公司 ➔ 臺南車站 (專車送站)</span>
-                            <span class="badge no-claim">不請款報銷</span>
-                        </div>
-                        <table class="ocr-table">
-                            <tr>
-                                <td class="label">車資費用</td>
-                                <td class="value">NT$ 0 元</td>
-                            </tr>
-                            <tr>
-                                <td class="label">說明原因</td>
-                                <td class="value" style="color: #a78bfa;">銀河公司專車接送，無產生個人費用</td>
-                            </tr>
-                        </table>
-                    </div>
+function doPost(e) {
+  return handleRequest(e);
+}
 
-                    <!-- Segment 4: Return Train -->
-                    <div class="segment-card" style="opacity: 0.85;">
-                        <div class="segment-title train" style="color: #94a3b8;">
-                            <span>④ 回程火車：臺南車站 ➔ 目的地 (非高雄返航段)</span>
-                            <span class="badge no-claim">不請款報銷</span>
-                        </div>
-                        <table class="ocr-table">
-                            <tr>
-                                <td class="label">回程區間</td>
-                                <td class="value">臺南 ➔ XXX (私人家務行程)</td>
-                            </tr>
-                            <tr>
-                                <td class="label">說明原因</td>
-                                <td class="value" style="color: #cbd5e1;">目的地非原出發地(高雄)，此段不列入出差報支請款</td>
-                            </tr>
-                        </table>
-                    </div>
+function handleRequest(e) {
+  var params = e.parameter || {};
+  if (e.postData && e.postData.contents) {
+    try {
+      var body = JSON.parse(e.postData.contents);
+      params = Object.assign({}, params, body);
+    } catch(err) {}
+  }
 
-                    <div class="total-box">
-                        <span>本日核銷小計 (段① + 段②)</span>
-                        <span class="total-price">NT$ 353</span>
-                    </div>
-                </div>
+  var pid = params.pid;
+  var recNo = params.recNo;
+
+  if (!pid || !recNo) {
+    return makeJsonResponse({ success: false, error: "缺少必要參數" });
+  }
+
+  try {
+    var result = downloadTraPdf(pid, recNo);
+    return makeJsonResponse(result);
+  } catch (error) {
+    return makeJsonResponse({ success: false, error: error.message || "伺服器內部錯誤" });
+  }
+}
+
+function makeJsonResponse(obj) {
+  var output = ContentService.createTextOutput(JSON.stringify(obj));
+  output.setMimeType(ContentService.MimeType.JSON);
+  return output;
+}
+
+function downloadTraPdf(pid, recNo) {
+  var userAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36";
+  var cookies = "";
+
+  // 1. GET CSRF
+  var queryUrl = "https://tip.railway.gov.tw/tra-tip-web/tip/tip001/tip115/query";
+  var res1 = UrlFetchApp.fetch(queryUrl, {
+    method: "get",
+    headers: { "User-Agent": userAgent },
+    muteHttpExceptions: true
+  });
+  if (res1.getResponseCode() !== 200) throw new Error("無法連線至台鐵官方網站");
+  var headers1 = res1.getAllHeaders();
+  cookies = mergeCookies(cookies, headers1['Set-Cookie'] || headers1['set-cookie']);
+  var html1 = res1.getContentText();
+  var csrfMatch = html1.match(/name="_csrf" value="([^"]+)"/);
+  if (!csrfMatch) throw new Error("解析安全標記 (CSRF 1) 失敗");
+  var csrfToken = csrfMatch[1];
+
+  // 2. POST queryHistory
+  var historyUrl = "https://tip.railway.gov.tw/tra-tip-web/tip/tip001/tip115/queryHistory";
+  var payload2 = {
+    "_csrf": csrfToken,
+    "custIdTypeEnum": "PERSON_ID",
+    "pid": pid,
+    "queryMethod": "ORD_NO",
+    "recNo": recNo,
+    "rideDate": "",
+    "startStation": "",
+    "endStation": ""
+  };
+  var res2 = UrlFetchApp.fetch(historyUrl, {
+    method: "post",
+    headers: {
+      "User-Agent": userAgent,
+      "Cookie": cookies,
+      "Referer": queryUrl,
+      "Origin": "https://tip.railway.gov.tw"
+    },
+    payload: payload2,
+    muteHttpExceptions: true
+  });
+  if (res2.getResponseCode() !== 200) throw new Error("向台鐵提交查詢失敗");
+  var headers2 = res2.getAllHeaders();
+  cookies = mergeCookies(cookies, headers2['Set-Cookie'] || headers2['set-cookie']);
+  var html2 = res2.getContentText();
+  if (html2.indexOf("無訂票記錄") !== -1 || html2.indexOf("查無訂單") !== -1 || html2.indexOf("實付金額") === -1) {
+    throw new Error("台鐵伺服器查無此訂票紀錄");
+  }
+
+  // 3. Parse download path & CSRF
+  var actionMatch = html2.match(/action="([^"]+purchaseDownload[^"]+)"/);
+  if (!actionMatch) throw new Error("解析下載連結失敗");
+  var downloadUrl = "https://tip.railway.gov.tw" + actionMatch[1];
+  var afterActionHtml = html2.substring(html2.indexOf(actionMatch[0]));
+  var downloadCsrfMatch = afterActionHtml.match(/name="_csrf" value="([^"]+)"/);
+  var downloadCsrf = downloadCsrfMatch ? downloadCsrfMatch[1] : csrfToken;
+
+  // 4. POST download PDF
+  var payload3 = { "_csrf": downloadCsrf, "pid": pid, "recNo": recNo };
+  var res3 = UrlFetchApp.fetch(downloadUrl, {
+    method: "post",
+    headers: {
+      "User-Agent": userAgent,
+      "Cookie": cookies,
+      "Referer": historyUrl,
+      "Origin": "https://tip.railway.gov.tw"
+    },
+    payload: payload3,
+    muteHttpExceptions: true
+  });
+  if (res3.getResponseCode() !== 200) throw new Error("取得 PDF 串流失敗");
+  var contentType = res3.getHeaders()['Content-Type'] || res3.getHeaders()['content-type'] || "";
+  var pdfBlob = res3.getBlob();
+  var bytes = pdfBlob.getBytes();
+  if (contentType.indexOf("application/pdf") === -1 && (bytes.length < 4 || (bytes[0] !== 0x25 || bytes[1] !== 0x50 || bytes[2] !== 0x44 || bytes[3] !== 0x46))) {
+    throw new Error("台鐵未返回正確的 PDF 格式憑證");
+  }
+
+  var base64Data = Utilities.base64Encode(bytes);
+  return { success: true, pdfBase64: base64Data };
+}
+
+function mergeCookies(existingCookies, newCookieHeader) {
+  if (!newCookieHeader) return existingCookies;
+  var cookieMap = {};
+  if (existingCookies) {
+    var pairs = existingCookies.split(';');
+    for (var i = 0; i < pairs.length; i++) {
+      var pair = pairs[i].trim();
+      if (!pair) continue;
+      var eqIdx = pair.indexOf('=');
+      if (eqIdx > 0) cookieMap[pair.substring(0, eqIdx)] = pair.substring(eqIdx + 1);
+    }
+  }
+  var rawCookies = Array.isArray(newCookieHeader) ? newCookieHeader : [newCookieHeader];
+  for (var i = 0; i < rawCookies.length; i++) {
+    var parts = rawCookies[i].split(';');
+    var mainPart = parts[0].trim();
+    if (!mainPart) continue;
+    var eqIdx = mainPart.indexOf('=');
+    if (eqIdx > 0) cookieMap[mainPart.substring(0, eqIdx)] = mainPart.substring(eqIdx + 1);
+  }
+  var cookieList = [];
+  for (var key in cookieMap) cookieList.push(key + '=' + cookieMap[key]);
+  return cookieList.join('; ');
+}</code></pre>
             </div>
         </div>
 
-        <!-- Class 03 Card -->
-        <div class="class-card">
-            <div class="class-header">
-                <div class="class-title">
-                    <span class="class-tag">Class 03</span>
-                    <h2>雙向憑證核銷 ＆ 接駁狀態明細</h2>
-                </div>
-                <div class="class-date">
-                    <i data-lucide="calendar"></i> 2026年6月11日 (四)
-                </div>
-            </div>
-            <div class="class-content">
-                <!-- Left: Document Preview -->
-                <div class="docs-column">
-                    <div class="doc-wrapper pdf-wrapper">
-                        <iframe src="mock_evidence_2/20260611高雄台南.pdf"></iframe>
-                        <div class="doc-tag"><i data-lucide="file-text"></i> 去程台鐵電子購票證明 (PDF)</div>
-                    </div>
-                    <div class="image-side-grid">
-                        <div class="doc-wrapper">
-                            <img src="mock_evidence_2/20260611計程車.jpg" alt="Class 03 Taxi Receipt">
-                            <div class="doc-tag"><i data-lucide="image"></i> 去程計程車收據 (JPG)</div>
-                        </div>
-                        <div class="doc-wrapper">
-                            <img src="mock_evidence_2/實體火車票-20260611.jpg" alt="Class 03 Return Train Ticket">
-                            <div class="doc-tag"><i data-lucide="image"></i> 回程實體車票 (JPG)</div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Right: OCR Metadata & 4-Segments -->
-                <div class="meta-column">
-                    <!-- Segment 1: Outbound Train -->
-                    <div class="segment-card">
-                        <div class="segment-title train">
-                            <span>① 去程火車：高雄 ➔ 臺南 (自強/普悠瑪 162車次)</span>
-                            <span class="badge claim">請款報銷</span>
-                        </div>
-                        <table class="ocr-table">
-                            <tr>
-                                <td class="label">乘車時間</td>
-                                <td class="value">2026/06/11 (08:00 - 08:27)</td>
-                            </tr>
-                            <tr>
-                                <td class="label">車資金額</td>
-                                <td class="value"><span style="font-weight: 600; color: #818cf8;">NT$ 158 元</span> (票號: N60200940306989)</td>
-                            </tr>
-                        </table>
-                    </div>
-
-                    <!-- Segment 2: Middle Taxi -->
-                    <div class="segment-card">
-                        <div class="segment-title taxi">
-                            <span>② 中間接駁：臺南車站 ➔ 銀河公司 (計程車)</span>
-                            <span class="badge claim">請款報銷</span>
-                        </div>
-                        <table class="ocr-table">
-                            <tr>
-                                <td class="label">搭乘時間</td>
-                                <td class="value">2026/06/11 (08:34 - 08:48)</td>
-                            </tr>
-                            <tr>
-                                <td class="label">計程車資</td>
-                                <td class="value"><span style="font-weight: 600; color: #fbbf24;">NT$ 195 元</span> (車牌: TDQ-8025 / 里程: 4.9 km)</td>
-                            </tr>
-                        </table>
-                    </div>
-
-                    <!-- Segment 3: Company Shuttle -->
-                    <div class="segment-card">
-                        <div class="segment-title shuttle">
-                            <span>③ 回程接駁：銀河公司 ➔ 臺南車站 (專車送站)</span>
-                            <span class="badge no-claim">不請款報銷</span>
-                        </div>
-                        <table class="ocr-table">
-                            <tr>
-                                <td class="label">車資費用</td>
-                                <td class="value">NT$ 0 元</td>
-                            </tr>
-                            <tr>
-                                <td class="label">說明原因</td>
-                                <td class="value" style="color: #a78bfa;">銀河公司專車接送，無產生個人費用</td>
-                            </tr>
-                        </table>
-                    </div>
-
-                    <!-- Segment 4: Return Train -->
-                    <div class="segment-card">
-                        <div class="segment-title train">
-                            <span>④ 回程火車：臺南車站 ➔ 高雄 (台鐵區間車)</span>
-                            <span class="badge claim">請款報銷</span>
-                        </div>
-                        <table class="ocr-table">
-                            <tr>
-                                <td class="label">乘車時間</td>
-                                <td class="value">2026.06.11 (14:51 購票)</td>
-                            </tr>
-                            <tr>
-                                <td class="label">車資金額</td>
-                                <td class="value"><span style="font-weight: 600; color: #34d399;">NT$ 102 元</span> (票號: A6008701927-8408)</td>
-                            </tr>
-                        </table>
-                    </div>
-
-                    <div class="total-box">
-                        <span>本日核銷小計 (段① + 段② + 段④)</span>
-                        <span class="total-price">NT$ 455</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Merged View Area (For references) -->
-        <div class="class-card" style="padding: 1.5rem;">
-            <div class="class-header" style="margin-bottom: 1rem; border-bottom: none; padding-bottom: 0;">
-                <div class="class-title">
-                    <i data-lucide="layers" style="color: #c084fc;"></i>
-                    <h3 style="font-size: 1.1rem; color: #e2e8f0;">計程車憑證總表影像對照</h3>
-                </div>
-            </div>
-            <div class="doc-wrapper" style="max-height: 500px; border-radius: 8px;">
-                <img src="mock_evidence_2/全部計程車單據.jpg" alt="All Taxi Receipts Combined" style="max-height: 480px; object-fit: contain;">
-                <div class="doc-tag"><i data-lucide="image"></i> 三堂課程計程車單據合照對照檔 (全部計程車單據.jpg)</div>
-            </div>
-        </div>
-
-        <!-- Visible Watermark/Signature Footer -->
-        <div class="watermark-visible">
-            銀河ERP v1.02 | 系統簽章：Falo x Force Cheng 2026/6/22
-        </div>
+        <!-- Footer -->
+        <footer>
+            <p>🌌 銀河ERP v1.02 — 憑證管理套件</p>
+            <p>
+                <a href="erp_dashboard.html">返回核銷明細儀表板</a> | 
+                <span>Falo x Force Cheng © 2026</span>
+            </p>
+        </footer>
     </div>
 
-    <!-- Initialize Lucide Icons -->
     <script>
-        lucide.createIcons();
+        // 一鍵複製程式碼
+        const copyBtn = document.getElementById('copyBtn');
+        const codeElement = document.getElementById('gasCode');
+
+        copyBtn.addEventListener('click', () => {
+            const codeText = codeElement.innerText;
+            navigator.clipboard.writeText(codeText).then(() => {
+                const originalHTML = copyBtn.innerHTML;
+                copyBtn.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                    已複製！
+                `;
+                copyBtn.style.background = 'rgba(16, 185, 129, 0.15)';
+                copyBtn.style.borderColor = 'rgba(16, 185, 129, 0.3)';
+                copyBtn.style.color = '#34d399';
+
+                setTimeout(() => {
+                    copyBtn.innerHTML = originalHTML;
+                    copyBtn.style.background = '';
+                    copyBtn.style.borderColor = '';
+                    copyBtn.style.color = '';
+                }, 2000);
+            }).catch(err => {
+                console.error('複製失敗:', err);
+                alert('複製失敗，請手動全選複製。');
+            });
+        });
     </script>
 </body>
 </html>

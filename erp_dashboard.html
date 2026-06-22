@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- ＳＥＯ 搜尋引擎最佳化 -->
+    <title>銀河ERP v1.02 - 個人交通憑證整理平台 (Falo x Force Cheng)</title>
+    <meta name="description" content="銀河ERP 1.02版個人交通憑證整理平台，提供電子與實體憑證OCR辨識、4段式行程管理、合規檢核與一鍵報銷導出。由 Falo x Force Cheng 聯手打造。">
+    <meta name="keywords" content="銀河ERP, 交通憑證, OCR辨識, 報帳系統, 4段式行程, 智慧稽核, Falo, Force Cheng, AI SEO">
+    <meta name="author" content="Force Cheng">
+    <meta name="robots" content="index, follow">
+    
+    <!-- ＧＥＯ / ＡＩ 語意爬取專用結構化數據 (JSON-LD) - 供 AI Agent 解析重用 -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ExpenseReport",
+      "name": "銀河ERP 個人交通憑證整理平台 - 課程出差核銷明細",
+      "version": "1.02",
+      "createdAt": "2026-06-22",
+      "systemWatermark": "Falo x Force Cheng 2026/06/22",
+      "author": {
+        "@type": "Person",
+        "name": "Force Cheng",
+        "organization": "Falo"
+      },
+      "reportSummary": {
+        "claimedAmount": 1201,
+        "currency": "TWD",
+        "claimedSegmentsCount": 7,
+        "unclaimedSegmentsCount": 5
+      },
+      "travelRecords": [
+        {
+          "classId": "Class 01",
+          "date": "2026-05-12",
+          "segments": [
+            { "type": "Train", "route": "高雄 to 台南", "fare": 158, "claimed": true, "details": "自強/普悠瑪 162次" },
+            { "type": "Taxi", "route": "台南車站 to 公司", "fare": 235, "claimed": true, "details": "大都會計程車 TDJ-9163" },
+            { "type": "Shuttle", "route": "公司 to 台南車站", "fare": 0, "claimed": false, "details": "公司接送" },
+            { "type": "Train", "route": "台南車站 to 目的地", "fare": 0, "claimed": false, "details": "非返航段自理" }
+          ]
+        },
+        {
+          "classId": "Class 02",
+          "date": "2026-05-22",
+          "segments": [
+            { "type": "Train", "route": "高雄 to 台南", "fare": 158, "claimed": true, "details": "自強/普悠瑪 162次" },
+            { "type": "Taxi", "route": "台南車站 to 公司", "fare": 195, "claimed": true, "details": "計程車 TDE5310" },
+            { "type": "Shuttle", "route": "公司 to 台南車站", "fare": 0, "claimed": false, "details": "公司接送" },
+            { "type": "Train", "route": "台南車站 to 目的地", "fare": 0, "claimed": false, "details": "非返航段自理" }
+          ]
+        },
+        {
+          "classId": "Class 03",
+          "date": "2026-06-11",
+          "segments": [
+            { "type": "Train", "route": "高雄 to 台南", "fare": 158, "claimed": true, "details": "自強/普悠瑪 162次" },
+            { "type": "Taxi", "route": "台南車站 to 公司", "fare": 195, "claimed": true, "details": "計程車 TDQ-8025" },
+            { "type": "Shuttle", "route": "公司 to 台南車站", "fare": 0, "claimed": false, "details": "公司接送" },
+            { "type": "Train", "route": "台南 to 高雄", "fare": 102, "claimed": true, "details": "區間車 A6008701927-8408" }
+          ]
+        }
+      ]
+    }
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --bg-gradient-start: #080c16;
+            --bg-gradient-end: #0f1322;
+            --card-bg: rgba(30, 41, 59, 0.45);
+            --card-border: rgba(255, 255, 255, 0.06);
+            --card-hover-bg: rgba(30, 41, 59, 0.6);
+            --card-hover-border: rgba(99, 102, 241, 0.35);
+            
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --text-muted: #64748b;
+            
+            --accent-primary: #6366f1; /* Indigo */
+            --accent-primary-glow: rgba(99, 102, 241, 0.2);
+            --accent-green: #10b981; /* Emerald */
+            --accent-green-glow: rgba(16, 185, 129, 0.15);
+            --accent-orange: #f59e0b; /* Amber */
+            --accent-orange-glow: rgba(245, 158, 11, 0.15);
+            --accent-red: #ef4444; /* Red */
+            --accent-red-glow: rgba(239, 68, 68, 0.15);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', 'Noto Sans TC', sans-serif;
+            background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding: 2rem 1.5rem;
+            line-height: 1.6;
+            position: relative;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Header */
+        header {
+            margin-bottom: 2.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--card-border);
+            padding-bottom: 1.5rem;
+        }
+
+        .header-title h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(to right, #818cf8, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .header-title p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--card-border);
+            color: var(--text-primary);
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .btn-primary {
+            background: var(--accent-primary);
+            border-color: var(--accent-primary);
+            box-shadow: 0 4px 12px var(--accent-primary-glow);
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            backdrop-filter: blur(12px);
+        }
+
+        .stat-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .stat-icon.train {
+            background: rgba(99, 102, 241, 0.15);
+            color: #818cf8;
+        }
+
+        .stat-icon.taxi {
+            background: rgba(245, 158, 11, 0.15);
+            color: #fbbf24;
+        }
+
+        .stat-icon.shuttle {
+            background: rgba(139, 92, 246, 0.15);
+            color: #a78bfa;
+        }
+
+        .stat-icon.total {
+            background: rgba(16, 185, 129, 0.15);
+            color: #34d399;
+        }
+
+        .stat-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: #94a3b8;
+        }
+
+        .stat-value {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-top: 0.15rem;
+        }
+
+        /* Class Card */
+        .class-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2.5rem;
+            backdrop-filter: blur(16px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .class-card:hover {
+            border-color: var(--card-hover-border);
+            background: var(--card-hover-bg);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .class-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.08);
+            padding-bottom: 1rem;
+        }
+
+        .class-title {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .class-tag {
+            background: var(--accent-primary-glow);
+            color: #a5b4fc;
+            padding: 0.25rem 0.75rem;
+            border-radius: 99px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+        }
+
+        .class-date {
+            color: #94a3b8;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .class-content {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 2.5rem;
+        }
+
+        @media (max-width: 900px) {
+            .class-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Documents Column */
+        .docs-column {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .doc-wrapper {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: #1e293b;
+        }
+
+        .doc-wrapper.pdf-wrapper {
+            height: 280px;
+        }
+
+        .doc-wrapper img {
+            width: 100%;
+            height: auto;
+            max-height: 350px;
+            object-fit: contain;
+            display: block;
+            opacity: 0.9;
+        }
+
+        .doc-wrapper iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: white;
+        }
+
+        .doc-tag {
+            position: absolute;
+            bottom: 12px;
+            left: 12px;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(4px);
+            padding: 0.3rem 0.7rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #e2e8f0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 10;
+        }
+
+        /* Metadata Column */
+        .meta-column {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        /* Segment Timeline Card */
+        .segment-card {
+            background: rgba(255, 255, 255, 0.015);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 10px;
+            padding: 1.25rem;
+            position: relative;
+        }
+
+        .segment-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            font-size: 0.95rem;
+        }
+
+        .segment-title.train {
+            color: #818cf8;
+        }
+
+        .segment-title.taxi {
+            color: #fbbf24;
+        }
+
+        .segment-title.shuttle {
+            color: #c084fc;
+        }
+
+        .ocr-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+        }
+
+        .ocr-table td {
+            padding: 0.45rem 0.5rem;
+            vertical-align: top;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .ocr-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .ocr-table td.label {
+            color: #94a3b8;
+            width: 110px;
+            font-weight: 500;
+        }
+
+        .ocr-table td.value {
+            color: var(--text-primary);
+        }
+
+        .badge {
+            font-size: 0.7rem;
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .badge.pdf {
+            background: rgba(239, 68, 68, 0.15);
+            color: #f87171;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .badge.claim {
+            background: var(--accent-green-glow);
+            color: #34d399;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .badge.no-claim {
+            background: rgba(148, 163, 184, 0.15);
+            color: #cbd5e1;
+            border: 1px solid rgba(148, 163, 184, 0.3);
+        }
+
+        .total-box {
+            margin-top: auto;
+            background: rgba(99, 102, 241, 0.08);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 8px;
+            padding: 1.25rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .total-box span {
+            font-size: 0.95rem;
+            color: #a5b4fc;
+            font-weight: 500;
+        }
+
+        .total-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #818cf8;
+        }
+
+        .image-side-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        @media (max-width: 600px) {
+            .image-side-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* 備註與說明卡片 */
+        .remarks-card {
+            background: rgba(245, 158, 11, 0.03);
+            border: 1px solid rgba(245, 158, 11, 0.15);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .remarks-card h3 {
+            font-size: 1rem;
+            color: #fbbf24;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .remarks-list {
+            list-style: none;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .remarks-list li {
+            position: relative;
+            padding-left: 1.25rem;
+        }
+
+        .remarks-list li::before {
+            content: "•";
+            color: #fbbf24;
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        /* 隱藏浮水印與簽章 */
+        .watermark-visible {
+            text-align: center;
+            padding: 2rem 0;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            border-top: 1px solid var(--card-border);
+            letter-spacing: 0.05em;
+        }
+
+        /* 1. 極淡的隱藏防偽浮水印 (0.01 不透明度，螢幕幾乎看不到，但結構中存在且列印時可控制) */
+        .hidden-watermark {
+            position: fixed;
+            bottom: 15px;
+            right: 15px;
+            opacity: 0.015;
+            color: #ffffff;
+            font-size: 11px;
+            font-family: monospace;
+            pointer-events: none;
+            user-select: none;
+            z-index: 99999;
+        }
+
+        /* 2. 針對 AI 爬取的隱藏 metadata 屬性 (AI-Readable Watermark) */
+        [data-metadata-watermark] {
+            display: none !important;
+            visibility: hidden !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- 隱藏防偽浮水印 (螢幕近乎隱形，但爬蟲與DOM分析可見) -->
+    <div class="hidden-watermark">Falo x Force Cheng 2026/6/22</div>
+    <div data-metadata-watermark="Falo x Force Cheng 2026/06/22 v1.02"></div>
+
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="header-title">
+                <h1>銀河ERP <span class="class-tag" style="background: rgba(139, 92, 246, 0.15); color: #c084fc; border-color: rgba(139, 92, 246, 0.3);">v1.02</span></h1>
+                <p>4段式完整行程核銷明細表 (去程火車 ➔ 接駁計程車 ➔ 公司回程接送 ➔ 回程火車)</p>
+            </div>
+            <div class="header-actions">
+                <a href="evidence_archive.zip" class="btn btn-primary" download><i data-lucide="download"></i> 下載所有憑證 ZIP</a>
+                <button class="btn" onclick="window.print()"><i data-lucide="printer"></i> 列印明細表</button>
+            </div>
+        </header>
+
+        <!-- Stats Overview -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon train">
+                    <i data-lucide="check-circle"></i>
+                </div>
+                <div class="stat-info">
+                    <span class="stat-label">應申報段數</span>
+                    <span class="stat-value">7 段</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon shuttle">
+                    <i data-lucide="x-circle"></i>
+                </div>
+                <div class="stat-info">
+                    <span class="stat-label">免申報/公司接駁段</span>
+                    <span class="stat-value">5 段 (不請款)</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon total">
+                    <i data-lucide="coins"></i>
+                </div>
+                <div class="stat-info">
+                    <span class="stat-label">可報銷總金額</span>
+                    <span class="stat-value" style="color: #34d399;">NT$ 1,201</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Remarks Section (備注) -->
+        <div class="remarks-card">
+            <h3><i data-lucide="alert-circle"></i> 報支備註與規則說明</h3>
+            <ul class="remarks-list">
+                <li>本核銷清單由 **銀河ERP v1.02** 系統自動整合 OCR 解析生成，並經由 Falo AI Audit 稽核模組覆核。</li>
+                <li>**免申報說明**：依銀河ERP出差政策規範，凡是銀河公司提供專車接駁段（段③）均標記為「免申報（NT$ 0）」。</li>
+                <li>**回程非高雄段說明**：Class 01 與 Class 02 之回程段（段④）目的地並非原出發地高雄，故標記為「不請款報銷」，由員工自理。</li>
+                <li>**一鍵下載備份**：右上角提供「下載所有憑證 ZIP」功能，可直接存取本批次之 PDF 電子乘車證明與計程車收據圖檔。</li>
+            </ul>
+        </div>
+
+        <!-- Class 01 Card -->
+        <div class="class-card">
+            <div class="class-header">
+                <div class="class-title">
+                    <span class="class-tag">Class 01</span>
+                    <h2>實體憑證核銷 ＆ 接駁狀態明細</h2>
+                </div>
+                <div class="class-date">
+                    <i data-lucide="calendar"></i> 2026年5月12日 (二)
+                </div>
+            </div>
+            <div class="class-content">
+                <!-- Left: Document Preview -->
+                <div class="docs-column">
+                    <div class="doc-wrapper pdf-wrapper">
+                        <iframe src="mock_evidence_2/20260512高雄台南.pdf"></iframe>
+                        <div class="doc-tag"><i data-lucide="file-text"></i> 去程台鐵電子購票證明 (PDF)</div>
+                    </div>
+                    <div class="doc-wrapper">
+                        <img src="mock_evidence_2/20260512計程車.jpg" alt="Class 01 Taxi Receipt">
+                        <div class="doc-tag"><i data-lucide="image"></i> 去程計程車乘車證明 (JPG)</div>
+                    </div>
+                </div>
+                <!-- Right: OCR Metadata & 4-Segments -->
+                <div class="meta-column">
+                    <!-- Segment 1: Outbound Train -->
+                    <div class="segment-card">
+                        <div class="segment-title train">
+                            <span>① 去程火車：高雄 ➔ 臺南 (自強/普悠瑪 162次)</span>
+                            <span class="badge claim">請款報銷</span>
+                        </div>
+                        <table class="ocr-table">
+                            <tr>
+                                <td class="label">乘車時間</td>
+                                <td class="value">2026/05/12 (08:00 - 08:27)</td>
+                            </tr>
+                            <tr>
+                                <td class="label">車資金額</td>
+                                <td class="value"><span style="font-weight: 600; color: #818cf8;">NT$ 158 元</span> (票號: N60166897110939)</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <!-- Segment 2: Middle Taxi -->
+                    <div class="segment-card">
+                        <div class="segment-title taxi">
+                            <span>② 中間接駁：臺南車站 ➔ 銀河公司 (大都會計程車)</span>
+                            <span class="badge claim">請款報銷</span>
+                        </div>
+                        <table class="ocr-table">
+                            <tr>
+                                <td class="label">搭乘時間</td>
+                                <td class="value">2026/05/12 (08:36 - 08:55)</td>
+                            </tr>
+                            <tr>
+                                <td class="label">計程車資</td>
+                                <td class="value"><span style="font-weight: 600; color: #fbbf24;">NT$ 235 元</span> (車牌: TDJ-9163 / 里程: 6.3 km)</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <!-- Segment 3: Company Shuttle -->
+                    <div class="segment-card" style="opacity: 0.85;">
+                        <div class="segment-title shuttle">
+                            <span>③ 回程接駁：銀河公司 ➔ 臺南車站 (專車送站)</span>
+                            <span class="badge no-claim">不請款報銷</span>
+                        </div>
+                        <table class="ocr-table">
+                            <tr>
+                                <td class="label">車資費用</td>
+                                <td class="value">NT$ 0 元</td>
+                            </tr>
+                            <tr>
+                                <td class="label">說明原因</td>
+                                <td class="value" style="color: #a78bfa;">銀河公司專車接送，無產生個人費用</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <!-- Segment 4: Return Train -->
+                    <div class="segment-card" style="opacity: 0.85;">
+                        <div class="segment-title train" style="color: #94a3b8;">
+                            <span>④ 回程火車：臺南車站 ➔ 目的地 (非高雄返航段)</span>
+                            <span class="badge no-claim">不請款報銷</span>
+                        </div>
+                        <table class="ocr-table">
+                            <tr>
+                                <td class="label">回程區間</td>
+                                <td class="value">臺南 ➔ XXX (私人家務行程)</td>
+                            </tr>
+                            <tr>
+                                <td class="label">說明原因</td>
+                                <td class="value" style="color: #cbd5e1;">目的地非原出發地(高雄)，此段不列入出差報支請款</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="total-box">
+                        <span>本日核銷小計 (段① + 段②)</span>
+                        <span class="total-price">NT$ 393</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Class 02 Card -->
+        <div class="class-card">
+            <div class="class-header">
+                <div class="class-title">
+                    <span class="class-tag">Class 02</span>
+                    <h2>實體憑證核銷 ＆ 接駁狀態明細</h2>
+                </div>
+                <div class="class-date">
+                    <i data-lucide="calendar"></i> 2026年5月22日 (五)
+                </div>
+            </div>
+            <div class="class-content">
+                <!-- Left: Document Preview -->
+                <div class="docs-column">
+                    <div class="doc-wrapper pdf-wrapper">
+                        <iframe src="mock_evidence_2/202260522高雄台南.pdf"></iframe>
+                        <div class="doc-tag"><i data-lucide="file-text"></i> 去程台鐵電子購票證明 (PDF)</div>
+                    </div>
+                    <div class="doc-wrapper">
+                        <img src="mock_evidence_2/20260522計程車單據.jpg" alt="Class 02 Taxi Receipt">
+                        <div class="doc-tag"><i data-lucide="image"></i> 去程計程車乘車證明 (JPG)</div>
+                    </div>
+                </div>
+                <!-- Right: OCR Metadata & 4-Segments -->
+                <div class="meta-column">
+                    <!-- Segment 1: Outbound Train -->
+                    <div class="segment-card">
+                        <div class="segment-title train">
+                            <span>① 去程火車：高雄 ➔ 臺南 (自強/普悠瑪 162車次)</span>
+                            <span class="badge claim">請款報銷</span>
+                        </div>
+                        <table class="ocr-table">
+                            <tr>
+                                <td class="label">乘車時間</td>
+                                <td class="value">2026/05/22 (08:00 - 08:27)</td>
+                            </tr>
+                            <tr>
+                                <td class="label">車資金額</td>
+                                <td class="value"><span style="font-weight: 600; color: #818cf8;">NT$ 158 元</span> (票號: N60178797885381)</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <!-- Segment 2: Middle Taxi -->
+                    <div class="segment-card">
+                        <div class="segment-title taxi">
+                            <span>② 中間接駁：臺南車站 ➔ 銀河公司 (大都會計程車)</span>
+                            <span class="badge claim">請款報銷</span>
+                        </div>
+                        <table class="ocr-table">
+                            <tr>
+                                <td class="label">搭乘時間</td>
+                                <td class="value">2026/05/22 (08:33 - 08:48)</td>
+                            </tr>
+                            <tr>
+                                <td class="label">計程車資</td>
+                                <td class="value"><span style="font-weight: 600; color: #fbbf24;">NT$ 195 元</span> (車牌: TDE5310 / 里程: 4.9 km)</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <!-- Segment 3: Company Shuttle -->
+                    <div class="segment-card" style="opacity: 0.85;">
+                        <div class="segment-title shuttle">
+                            <span>③ 回程接駁：銀河公司 ➔ 臺南車站 (專車送站)</span>
+                            <span class="badge no-claim">不請款報銷</span>
+                        </div>
+                        <table class="ocr-table">
+                            <tr>
+                                <td class="label">車資費用</td>
+                                <td class="value">NT$ 0 元</td>
+                            </tr>
+                            <tr>
+                                <td class="label">說明原因</td>
+                                <td class="value" style="color: #a78bfa;">銀河公司專車接送，無產生個人費用</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <!-- Segment 4: Return Train -->
+                    <div class="segment-card" style="opacity: 0.85;">
+                        <div class="segment-title train" style="color: #94a3b8;">
+                            <span>④ 回程火車：臺南車站 ➔ 目的地 (非高雄返航段)</span>
+                            <span class="badge no-claim">不請款報銷</span>
+                        </div>
+                        <table class="ocr-table">
+                            <tr>
+                                <td class="label">回程區間</td>
+                                <td class="value">臺南 ➔ XXX (私人家務行程)</td>
+                            </tr>
+                            <tr>
+                                <td class="label">說明原因</td>
+                                <td class="value" style="color: #cbd5e1;">目的地非原出發地(高雄)，此段不列入出差報支請款</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="total-box">
+                        <span>本日核銷小計 (段① + 段②)</span>
+                        <span class="total-price">NT$ 353</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Class 03 Card -->
+        <div class="class-card">
+            <div class="class-header">
+                <div class="class-title">
+                    <span class="class-tag">Class 03</span>
+                    <h2>雙向憑證核銷 ＆ 接駁狀態明細</h2>
+                </div>
+                <div class="class-date">
+                    <i data-lucide="calendar"></i> 2026年6月11日 (四)
+                </div>
+            </div>
+            <div class="class-content">
+                <!-- Left: Document Preview -->
+                <div class="docs-column">
+                    <div class="doc-wrapper pdf-wrapper">
+                        <iframe src="mock_evidence_2/20260611高雄台南.pdf"></iframe>
+                        <div class="doc-tag"><i data-lucide="file-text"></i> 去程台鐵電子購票證明 (PDF)</div>
+                    </div>
+                    <div class="image-side-grid">
+                        <div class="doc-wrapper">
+                            <img src="mock_evidence_2/20260611計程車.jpg" alt="Class 03 Taxi Receipt">
+                            <div class="doc-tag"><i data-lucide="image"></i> 去程計程車收據 (JPG)</div>
+                        </div>
+                        <div class="doc-wrapper">
+                            <img src="mock_evidence_2/實體火車票-20260611.jpg" alt="Class 03 Return Train Ticket">
+                            <div class="doc-tag"><i data-lucide="image"></i> 回程實體車票 (JPG)</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Right: OCR Metadata & 4-Segments -->
+                <div class="meta-column">
+                    <!-- Segment 1: Outbound Train -->
+                    <div class="segment-card">
+                        <div class="segment-title train">
+                            <span>① 去程火車：高雄 ➔ 臺南 (自強/普悠瑪 162車次)</span>
+                            <span class="badge claim">請款報銷</span>
+                        </div>
+                        <table class="ocr-table">
+                            <tr>
+                                <td class="label">乘車時間</td>
+                                <td class="value">2026/06/11 (08:00 - 08:27)</td>
+                            </tr>
+                            <tr>
+                                <td class="label">車資金額</td>
+                                <td class="value"><span style="font-weight: 600; color: #818cf8;">NT$ 158 元</span> (票號: N60200940306989)</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <!-- Segment 2: Middle Taxi -->
+                    <div class="segment-card">
+                        <div class="segment-title taxi">
+                            <span>② 中間接駁：臺南車站 ➔ 銀河公司 (計程車)</span>
+                            <span class="badge claim">請款報銷</span>
+                        </div>
+                        <table class="ocr-table">
+                            <tr>
+                                <td class="label">搭乘時間</td>
+                                <td class="value">2026/06/11 (08:34 - 08:48)</td>
+                            </tr>
+                            <tr>
+                                <td class="label">計程車資</td>
+                                <td class="value"><span style="font-weight: 600; color: #fbbf24;">NT$ 195 元</span> (車牌: TDQ-8025 / 里程: 4.9 km)</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <!-- Segment 3: Company Shuttle -->
+                    <div class="segment-card">
+                        <div class="segment-title shuttle">
+                            <span>③ 回程接駁：銀河公司 ➔ 臺南車站 (專車送站)</span>
+                            <span class="badge no-claim">不請款報銷</span>
+                        </div>
+                        <table class="ocr-table">
+                            <tr>
+                                <td class="label">車資費用</td>
+                                <td class="value">NT$ 0 元</td>
+                            </tr>
+                            <tr>
+                                <td class="label">說明原因</td>
+                                <td class="value" style="color: #a78bfa;">銀河公司專車接送，無產生個人費用</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <!-- Segment 4: Return Train -->
+                    <div class="segment-card">
+                        <div class="segment-title train">
+                            <span>④ 回程火車：臺南車站 ➔ 高雄 (台鐵區間車)</span>
+                            <span class="badge claim">請款報銷</span>
+                        </div>
+                        <table class="ocr-table">
+                            <tr>
+                                <td class="label">乘車時間</td>
+                                <td class="value">2026.06.11 (14:51 購票)</td>
+                            </tr>
+                            <tr>
+                                <td class="label">車資金額</td>
+                                <td class="value"><span style="font-weight: 600; color: #34d399;">NT$ 102 元</span> (票號: A6008701927-8408)</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="total-box">
+                        <span>本日核銷小計 (段① + 段② + 段④)</span>
+                        <span class="total-price">NT$ 455</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Merged View Area (For references) -->
+        <div class="class-card" style="padding: 1.5rem;">
+            <div class="class-header" style="margin-bottom: 1rem; border-bottom: none; padding-bottom: 0;">
+                <div class="class-title">
+                    <i data-lucide="layers" style="color: #c084fc;"></i>
+                    <h3 style="font-size: 1.1rem; color: #e2e8f0;">計程車憑證總表影像對照</h3>
+                </div>
+            </div>
+            <div class="doc-wrapper" style="max-height: 500px; border-radius: 8px;">
+                <img src="mock_evidence_2/全部計程車單據.jpg" alt="All Taxi Receipts Combined" style="max-height: 480px; object-fit: contain;">
+                <div class="doc-tag"><i data-lucide="image"></i> 三堂課程計程車單據合照對照檔 (全部計程車單據.jpg)</div>
+            </div>
+        </div>
+
+        <!-- Visible Watermark/Signature Footer -->
+        <div class="watermark-visible">
+            銀河ERP v1.02 | 系統簽章：Falo x Force Cheng 2026/6/22
+        </div>
+    </div>
+
+    <!-- Initialize Lucide Icons -->
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
