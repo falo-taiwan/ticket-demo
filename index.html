@@ -569,6 +569,468 @@ function mergeCookies(existingCookies, newCookieHeader) {
 }</code></pre>
             </div>
         </div>
+            <!-- 資安警示區區塊 -->
+            <div style="background: rgba(239, 68, 68, 0.07); border: 1px solid rgba(239, 68, 68, 0.25); border-radius: 8px; padding: 1.25rem; margin-top: 2rem; margin-bottom: 1.5rem; display: flex; gap: 12px; align-items: flex-start;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#f87171" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; margin-top: 2px;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                <div style="font-size: 0.85rem; color: #fca5a5;">
+                    <strong style="color: #f87171; display: block; font-size: 0.9rem; margin-bottom: 0.3rem;">🔒 資訊安全與隱私防護重要提醒 (Watermark: Falo x Force Cheng 2026/6/22)</strong>
+                    基於資安與防護考量（保護您的身分證字號與訂票電腦代碼），本專案將後端程式碼與前端網頁完全<b>開源且透明</b>。我們強烈建議您複製下方的「<b>用戶端網頁 (gas_client.html)</b>」程式碼，並於本機另存為一個 <code>.html</code> 檔案（例如 <code>my_client.html</code>）雙擊執行。<br>
+                    這可以 100% 確保您的敏感個資<b>僅在您本機的瀏覽器與您個人擁有的 Google Apps Script 帳號間直接傳送</b>，絕無任何中間人儲存或第三方資料外洩風險！
+                </div>
+            </div>
+
+            <!-- GAS Client Code Block -->
+            <div class="code-header" style="margin-top: 2.5rem;">
+                <span>gas_client.html (用戶端網頁程式碼)</span>
+                <button id="copyClientBtn" class="copy-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                    複製網頁程式碼
+                </button>
+            </div>
+            <div class="code-container">
+<pre><code id="gasClientCode">&lt;!--
+  銀河ERP - 台鐵憑證網頁下載版 (GAS)
+  系統浮水印：Falo x Force Cheng 2026/6/22
+--&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;zh-TW&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;銀河ERP - 台鐵憑證網頁下載版 (GAS)&lt;/title&gt;
+    &lt;!-- Google Fonts --&gt;
+    &lt;link href=&quot;https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Noto+Sans+TC:wght@400;500;700&amp;display=swap&quot; rel=&quot;stylesheet&quot;&gt;
+    &lt;style&gt;
+        :root {
+            --bg-color: #080c14;
+            --card-bg: rgba(30, 41, 59, 0.45);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-primary: #6366f1; /* Indigo */
+            --accent-hover: #4f46e5;
+            --accent-glow: rgba(99, 102, 241, 0.25);
+            --accent-amber: #d97706; /* Amber */
+            --accent-amber-hover: #b45309;
+            --success-color: #10b981;
+            --error-color: #ef4444;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: &#x27;Inter&#x27;, &#x27;Noto Sans TC&#x27;, sans-serif;
+            background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.1) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(217, 119, 6, 0.06) 0px, transparent 50%);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1.5rem;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 460px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(16px);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .header {
+            margin-bottom: 1.75rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1rem;
+            position: relative;
+        }
+
+        .back-link {
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.8rem;
+            transition: color 0.2s ease;
+            margin-bottom: 0.5rem;
+        }
+
+        .back-link:hover {
+            color: var(--text-primary);
+        }
+
+        .header h2 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            background: linear-gradient(to right, #818cf8, #f59e0b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-top: 1.5rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .header p {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        label {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.4rem;
+            font-weight: 500;
+        }
+
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
+
+        input {
+            width: 100%;
+            padding: 0.65rem 0.85rem;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            background: rgba(15, 23, 42, 0.6);
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+
+        .input-wrapper input {
+            padding-right: 2.25rem;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 3px var(--accent-glow);
+        }
+
+        input::placeholder {
+            color: rgba(148, 163, 184, 0.4);
+        }
+
+        .icon-btn {
+            position: absolute;
+            right: 8px;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4px;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+
+        .icon-btn:hover {
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .gas-save-info {
+            font-size: 0.75rem;
+            color: var(--success-color);
+            margin-top: 0.25rem;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .gas-save-info.show {
+            opacity: 0.8;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 6px;
+            background: var(--accent-amber);
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 12px rgba(217, 119, 6, 0.15);
+            margin-top: 0.5rem;
+        }
+
+        .btn:hover {
+            background: var(--accent-amber-hover);
+            transform: translateY(-1px);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn:disabled {
+            background: rgba(217, 119, 6, 0.4);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .btn.loading {
+            background: #b45309 !important;
+            cursor: wait !important;
+        }
+
+        #status {
+            margin-top: 1.25rem;
+            font-size: 0.85rem;
+            padding: 0.75rem;
+            border-radius: 6px;
+            line-height: 1.4;
+            display: none;
+        }
+
+        #status.info {
+            display: block;
+            background: rgba(56, 189, 248, 0.08);
+            color: #38bdf8;
+            border: 1px solid rgba(56, 189, 248, 0.15);
+        }
+
+        #status.success {
+            display: block;
+            background: rgba(16, 185, 129, 0.08);
+            color: var(--success-color);
+            border: 1px solid rgba(16, 185, 129, 0.15);
+        }
+
+        #status.error {
+            display: block;
+            background: rgba(239, 68, 68, 0.08);
+            color: var(--error-color);
+            border: 1px solid rgba(239, 68, 68, 0.15);
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+    &lt;div class=&quot;container&quot;&gt;
+        &lt;div class=&quot;header&quot;&gt;
+            &lt;a href=&quot;index.html&quot; class=&quot;back-link&quot;&gt;
+                &lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; width=&quot;14&quot; height=&quot;14&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;&gt;&lt;line x1=&quot;19&quot; y1=&quot;12&quot; x2=&quot;5&quot; y2=&quot;12&quot;/&gt;&lt;polyline points=&quot;12 19 5 12 12 5&quot;/&gt;&lt;/svg&gt;
+                返回說明首頁
+            &lt;/a&gt;
+            &lt;h2&gt;台鐵憑證網頁下載版 (GAS)&lt;/h2&gt;
+            &lt;p&gt;使用您的個人 Google Apps Script 節點進行安全下載&lt;/p&gt;
+        &lt;/div&gt;
+
+        &lt;div class=&quot;form-group&quot;&gt;
+            &lt;div style=&quot;display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;&quot;&gt;
+                &lt;label for=&quot;gasUrl&quot; style=&quot;margin-bottom: 0;&quot;&gt;Google Apps Script Web App 網址&lt;/label&gt;
+                &lt;a href=&quot;#&quot; id=&quot;loadDemoUrlBtn&quot; style=&quot;color: var(--accent-primary); font-size: 0.75rem; text-decoration: none; font-weight: 500;&quot;&gt;[ 帶入測試示範網址 ]&lt;/a&gt;
+            &lt;/div&gt;
+            &lt;input type=&quot;text&quot; id=&quot;gasUrl&quot; placeholder=&quot;https://script.google.com/macros/s/.../exec&quot; autocomplete=&quot;off&quot;&gt;
+            &lt;div id=&quot;gasSaveInfo&quot; class=&quot;gas-save-info&quot;&gt;
+                &lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; width=&quot;12&quot; height=&quot;12&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;&gt;&lt;polyline points=&quot;20 6 9 17 4 12&quot;/&gt;&lt;/svg&gt;
+                已自動安全儲存至本機，下次無須再輸入
+            &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div class=&quot;form-group&quot;&gt;
+            &lt;label for=&quot;pid&quot;&gt;身分證字號 / 統一編號&lt;/label&gt;
+            &lt;div class=&quot;input-wrapper&quot;&gt;
+                &lt;input type=&quot;password&quot; id=&quot;pid&quot; placeholder=&quot;例如：A123456789&quot; autocomplete=&quot;off&quot;&gt;
+                &lt;button id=&quot;togglePidBtn&quot; type=&quot;button&quot; class=&quot;icon-btn&quot; title=&quot;顯示/隱藏身分證&quot;&gt;
+                    &lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; width=&quot;16&quot; height=&quot;16&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; class=&quot;lucide lucide-eye&quot;&gt;&lt;path d=&quot;M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z&quot;/&gt;&lt;circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;3&quot;/&gt;&lt;/svg&gt;
+                &lt;/button&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div class=&quot;form-group&quot;&gt;
+            &lt;label for=&quot;recNo&quot;&gt;訂票電腦代碼&lt;/label&gt;
+            &lt;input type=&quot;text&quot; id=&quot;recNo&quot; placeholder=&quot;例如：9310417&quot; autocomplete=&quot;off&quot;&gt;
+        &lt;/div&gt;
+
+        &lt;div class=&quot;form-group&quot;&gt;
+            &lt;label for=&quot;filename&quot;&gt;存檔名稱&lt;/label&gt;
+            &lt;input type=&quot;text&quot; id=&quot;filename&quot; placeholder=&quot;例如：TRA_Ticket_9310417.pdf&quot; value=&quot;TRA_Ticket_代碼.pdf&quot; autocomplete=&quot;off&quot;&gt;
+        &lt;/div&gt;
+
+        &lt;button id=&quot;downloadBtn&quot; class=&quot;btn&quot;&gt;連線並下載憑證&lt;/button&gt;
+
+        &lt;div id=&quot;status&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;script&gt;
+        const gasUrlInput = document.getElementById(&#x27;gasUrl&#x27;);
+        const loadDemoUrlBtn = document.getElementById(&#x27;loadDemoUrlBtn&#x27;);
+        const gasSaveInfo = document.getElementById(&#x27;gasSaveInfo&#x27;);
+        const pidInput = document.getElementById(&#x27;pid&#x27;);
+        const recNoInput = document.getElementById(&#x27;recNo&#x27;);
+        const filenameInput = document.getElementById(&#x27;filename&#x27;);
+        const togglePidBtn = document.getElementById(&#x27;togglePidBtn&#x27;);
+        const downloadBtn = document.getElementById(&#x27;downloadBtn&#x27;);
+        const statusDiv = document.getElementById(&#x27;status&#x27;);
+
+        // 0. 密碼解鎖並自動填入示範 URL
+        loadDemoUrlBtn.addEventListener(&#x27;click&#x27;, (e) =&gt; {
+            e.preventDefault();
+            const pwd = prompt(&quot;請輸入解鎖密碼以帶入示範網址：&quot;);
+            if (pwd === &quot;falo&quot;) {
+                const demoUrl = &quot;https://script.google.com/macros/s/AKfycbxHbc_RKfVg9EI9tlBX454U5V9Pna5IuUC65T68eqtqVPllSEg9pITEuInhLWkwuzVyHQ/exec&quot;;
+                gasUrlInput.value = demoUrl;
+                localStorage.setItem(&#x27;tra_gas_url&#x27;, demoUrl);
+                gasSaveInfo.classList.add(&#x27;show&#x27;);
+                alert(&quot;解鎖成功，已成功帶入示範網址！&quot;);
+            } else if (pwd !== null) {
+                alert(&quot;密碼錯誤，無法解鎖示範網址。&quot;);
+            }
+        });
+
+        // 1. 初始化讀取 LocalStorage 中的 GAS 網址
+        if (localStorage.getItem(&#x27;tra_gas_url&#x27;)) {
+            gasUrlInput.value = localStorage.getItem(&#x27;tra_gas_url&#x27;);
+            gasSaveInfo.classList.add(&#x27;show&#x27;);
+        }
+
+        // 監聽 GAS 網址變更以儲存
+        gasUrlInput.addEventListener(&#x27;input&#x27;, () =&gt; {
+            const url = gasUrlInput.value.trim();
+            if (url) {
+                localStorage.setItem(&#x27;tra_gas_url&#x27;, url);
+                gasSaveInfo.classList.add(&#x27;show&#x27;);
+            } else {
+                localStorage.removeItem(&#x27;tra_gas_url&#x27;);
+                gasSaveInfo.classList.remove(&#x27;show&#x27;);
+            }
+        });
+
+        // 2. 身分證顯示切換
+        togglePidBtn.addEventListener(&#x27;click&#x27;, () =&gt; {
+            const isPassword = pidInput.type === &#x27;password&#x27;;
+            pidInput.type = isPassword ? &#x27;text&#x27; : &#x27;password&#x27;;
+            togglePidBtn.innerHTML = isPassword 
+                ? &#x27;&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; width=&quot;16&quot; height=&quot;16&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; class=&quot;lucide lucide-eye-off&quot;&gt;&lt;path d=&quot;M9.88 9.88a3 3 0 1 0 4.24 4.24&quot;/&gt;&lt;path d=&quot;M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68&quot;/&gt;&lt;path d=&quot;M6.61 6.61A13.52 13.52 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61&quot;/&gt;&lt;line x1=&quot;2&quot; x2=&quot;22&quot; y1=&quot;2&quot; y2=&quot;22&quot;/&gt;&lt;/svg&gt;&#x27;
+                : &#x27;&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; width=&quot;16&quot; height=&quot;16&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; class=&quot;lucide lucide-eye&quot;&gt;&lt;path d=&quot;M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z&quot;/&gt;&lt;circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;3&quot;/&gt;&lt;/svg&gt;&#x27;;
+        });
+
+        // 3. 電腦代碼輸入連動檔名
+        recNoInput.addEventListener(&#x27;input&#x27;, () =&gt; {
+            const code = recNoInput.value.trim();
+            filenameInput.value = `TRA_Ticket_${code || &#x27;代碼&#x27;}.pdf`;
+        });
+
+        // 4. 下載邏輯
+        downloadBtn.addEventListener(&#x27;click&#x27;, async () =&gt; {
+            const gasUrl = gasUrlInput.value.trim();
+            const pid = pidInput.value.trim();
+            const recNo = recNoInput.value.trim();
+            const filename = filenameInput.value.trim() || `TRA_Ticket_${recNo}.pdf`;
+
+            if (!gasUrl) {
+                showStatus(&quot;請輸入您的 Google Apps Script Web App 網址&quot;, &quot;error&quot;);
+                return;
+            }
+            if (!pid || !recNo) {
+                showStatus(&quot;請填寫身分證字號與訂票電腦代碼&quot;, &quot;error&quot;);
+                return;
+            }
+
+            const originalText = downloadBtn.innerText;
+            downloadBtn.disabled = true;
+            downloadBtn.classList.add(&#x27;loading&#x27;);
+            downloadBtn.innerText = &quot;查詢下載中，請稍候...&quot;;
+            showStatus(&quot;正在連線至您的 GAS 伺服器節點...&quot;, &quot;info&quot;);
+
+            try {
+                // 發送 POST 請求給 GAS
+                const response = await fetch(gasUrl, {
+                    method: &#x27;POST&#x27;,
+                    mode: &#x27;cors&#x27;,
+                    headers: {
+                        &#x27;Content-Type&#x27;: &#x27;text/plain;charset=utf-8&#x27; // 使用 text/plain 避免觸發 preflight CORS 限制
+                    },
+                    body: JSON.stringify({ pid, recNo })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`GAS 節點回應錯誤 (代碼: ${response.status})`);
+                }
+
+                const data = await response.json();
+                if (!data.success) {
+                    throw new Error(data.error || &quot;GAS 轉接下載失敗&quot;);
+                }
+
+                showStatus(&quot;成功取得資料，正在本機還原 PDF 檔案...&quot;, &quot;info&quot;);
+
+                // 將 Base64 解密為 Blob 物件
+                const pdfBlob = base64ToBlob(data.pdfBase64, &#x27;application/pdf&#x27;);
+                const downloadUrl = URL.createObjectURL(pdfBlob);
+
+                // 建立隱藏連結觸發下載
+                const a = document.createElement(&#x27;a&#x27;);
+                a.href = downloadUrl;
+                a.download = filename;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(downloadUrl);
+
+                showStatus(&quot;✓ 憑證下載成功並已自訂命名存檔！&quot;, &quot;success&quot;);
+
+            } catch (error) {
+                showStatus(`連線錯誤: ${error.message}&lt;br&gt;&lt;small style=&quot;opacity: 0.7;&quot;&gt;請確認您的 GAS 部署網址是否正確，且權限設為「任何人 (Anyone)」&lt;/small&gt;`, &quot;error&quot;);
+            } finally {
+                downloadBtn.disabled = false;
+                downloadBtn.classList.remove(&#x27;loading&#x27;);
+                downloadBtn.innerText = originalText;
+            }
+        });
+
+        // 狀態顯示輔助
+        function showStatus(message, type) {
+            statusDiv.className = type;
+            statusDiv.innerHTML = message;
+        }
+
+        // Base64 還原 Blob
+        function base64ToBlob(base64, mime) {
+            const byteCharacters = atob(base64);
+            const byteNumbers = new Array(byteCharacters.length);
+            for (let i = 0; i &lt; byteCharacters.length; i++) {
+                byteNumbers[i] = byteCharacters.charCodeAt(i);
+            }
+            const byteArray = new Uint8Array(byteNumbers);
+            return new Blob([byteArray], { type: mime });
+        }
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+            </div>
+
 
         <!-- Footer -->
         <footer>
@@ -602,6 +1064,34 @@ function mergeCookies(existingCookies, newCookieHeader) {
                     copyBtn.style.background = '';
                     copyBtn.style.borderColor = '';
                     copyBtn.style.color = '';
+                }, 2000);
+            }).catch(err => {
+                console.error('複製失敗:', err);
+                alert('複製失敗，請手動全選複製。');
+            });
+        });
+
+        // 一鍵複製用戶端網頁程式碼
+        const copyClientBtn = document.getElementById('copyClientBtn');
+        const clientCodeElement = document.getElementById('gasClientCode');
+
+        copyClientBtn.addEventListener('click', () => {
+            const codeText = clientCodeElement.innerText;
+            navigator.clipboard.writeText(codeText).then(() => {
+                const originalHTML = copyClientBtn.innerHTML;
+                copyClientBtn.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                    已複製！
+                `;
+                copyClientBtn.style.background = 'rgba(16, 185, 129, 0.15)';
+                copyClientBtn.style.borderColor = 'rgba(16, 185, 129, 0.3)';
+                copyClientBtn.style.color = '#34d399';
+
+                setTimeout(() => {
+                    copyClientBtn.innerHTML = originalHTML;
+                    copyClientBtn.style.background = '';
+                    copyClientBtn.style.borderColor = '';
+                    copyClientBtn.style.color = '';
                 }, 2000);
             }).catch(err => {
                 console.error('複製失敗:', err);
